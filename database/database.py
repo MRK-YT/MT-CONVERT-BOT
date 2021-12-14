@@ -57,8 +57,7 @@ async def del_thumb(id):
 
 async def get_thumb(id):
     try:
-        t = SESSION.query(Thumbnail).get(id)
-        return t
+        return SESSION.query(Thumbnail).get(id)
     finally:
         SESSION.close()
 def start() -> scoped_session:
@@ -105,7 +104,6 @@ async def remove(id):
 
 async def check(id):
     try:
-        y = SESSION.query(Settings).get(id)
-        return y
+        return SESSION.query(Settings).get(id)
     finally:
         SESSION.close()

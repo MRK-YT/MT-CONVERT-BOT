@@ -26,7 +26,7 @@ async def download(c, m):
     logger.info(f"Downloading strated by {m.from_user.first_name}")
 
 
-    download_location = Config.DOWNLOAD_LOCATION + "/"                                                               
+    download_location = Config.DOWNLOAD_LOCATION + "/"
     c_time = time.time()
     media_location = await c.download_media(
                           message=m.reply_to_message,
@@ -38,7 +38,7 @@ async def download(c, m):
                                c_time
                           )
                      )
-    if not media_location is None:
+    if media_location is not None:
         await send.edit(Translation.DOWNLOAD_COMPLETE)
         logger.info(f"{media_location} was downloaded successfully")
 
@@ -57,18 +57,17 @@ async def download(c, m):
                     thumb_image_path = thumb_image_path
                 except:
                     pass
-            if mes == None:
-                if m.text == "/converttovideo":
-                    if metadata.has("duration"):
-                        duration = metadata.get('duration').seconds
-                        thumb_image_path = await take_screen_shot(
-                            media_location,
-                            os.path.dirname(media_location),
-                            random.randint(
-                                0,
-                                duration - 1
-                            )
+            if mes is None:
+                if m.text == "/converttovideo" and metadata.has("duration"):
+                    duration = metadata.get('duration').seconds
+                    thumb_image_path = await take_screen_shot(
+                        media_location,
+                        os.path.dirname(media_location),
+                        random.randint(
+                            0,
+                            duration - 1
                         )
+                    )
                 if m.text == "/converttofile":
                     thumb_image_path = None
         logger.info(thumb_image_path)
